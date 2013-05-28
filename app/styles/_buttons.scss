@@ -1,0 +1,26 @@
+.btn {
+  color: inherit;
+  margin-bottom: 0; 
+  vertical-align: middle;
+  text-align: center;
+  border-color: rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  position: relative;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 1;
+  text-shadow: none;
+  background-color: #eee;
+  font-size: 14px;
+  padding: 8px 14px 9px;
+  background-image: none;
+  background-origin: padding-box;
+  background-size: auto;
+}

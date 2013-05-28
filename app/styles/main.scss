@@ -1,0 +1,70 @@
+@import "compass_twitter_bootstrap";
+@import "buttons";
+/*
+font-family: 'Arvo', serif;
+font-family: 'Poiret One', cursive;
+font-family: 'Rokkitt', serif;
+font-family: 'Bangers', cursive;
+*/
+
+body {
+  padding-top: 20px;
+  padding-bottom: 40px;
+  background-image: url(../img/gplaypattern.png);
+  background-position: initial initial;
+  background-repeat: initial initial;
+  color: #555;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 200;
+}
+
+h2,h3,h4 {
+  letter-spacing: -1px;
+}
+
+
+.highlighted {
+  color: #47C2C2;
+}
+
+.bright {
+  color: #F76F87;
+}
+
+h2, h3, h4 {
+  font-family: 'Bangers', cursive;
+}
+
+/* Custom container */
+.container-narrow {
+  margin: 0 auto;
+  max-width: 700px;
+  padding: 10px 60px;
+  background-color: #fff;
+  background-color: rgba(255,255,255,0.5);
+}
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  margin: 60px 0;
+  text-align: center;
+}
+.jumbotron h1 {
+  font-size: 72px;
+  line-height: 1;
+  font-family: 'Poiret One', cursive;
+  font-family: 'Bangers', cursive;
+}
+.jumbotron .btn {
+  font-size: 21px;
+  padding: 14px 24px;
+}
+
+/* Supporting marketing content */
+
+.marketing p + h4 {
+  margin-top: 28px;
+}
