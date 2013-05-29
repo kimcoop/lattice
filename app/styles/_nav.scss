@@ -1,0 +1,23 @@
+
+header {
+  background-image: url(../img/gplaypattern.png);
+  background-position: initial initial;
+  background-repeat: initial initial;
+  background-color: #121b21;
+  height: 72px;
+  text-align: center;
+  padding-top: 9px;
+  line-height: 32px;
+}
+
+footer {
+  font-size: 0.9em;
+  overflow: hidden;
+  border-width: 15px 0 0 0;
+  background: #efefef;
+  text-align: center;
+  margin-top: 100px;
+  // background: #edf3f3 url(../img/gplaypattern.png) top repeat-x;
+  padding: 10px 0;
+  border-image: url(../img/gplaypattern.png) 25% repeat;
+}

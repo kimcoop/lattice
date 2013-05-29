@@ -6,6 +6,7 @@ var mountFolder = function (connect, dir) {
 
 module.exports = function (grunt) {
   // load all grunt tasks
+  grunt.loadNpmTasks('grunt-jade');
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
   // configurable paths
@@ -24,6 +25,10 @@ module.exports = function (grunt) {
       coffee: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
         tasks: ['coffee:dist']
+      },
+      jade: {
+        files: 'app/views/*.jade',
+        tasks: 'jade'
       },
       coffeeTest: {
         files: ['test/spec/{,*/}*.coffee'],
@@ -122,6 +127,15 @@ module.exports = function (grunt) {
           dest: '.tmp/spec',
           ext: '.js'
         }]
+      }
+    },
+    jade: {
+      html: {
+        src: ['<%= yeoman.app %>/views/*.jade'],
+        dest: '<%= yeoman.app %>/views',
+        options: {
+          client: false
+        }
       }
     },
     compass: {
@@ -263,6 +277,7 @@ module.exports = function (grunt) {
   grunt.renameTask('regarde', 'watch');
 
   grunt.registerTask('server', [
+    'jade',
     'clean:server',
     'coffee:dist',
     'compass:server',

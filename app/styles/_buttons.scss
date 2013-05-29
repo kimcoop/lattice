@@ -1,13 +1,12 @@
 .btn {
-  color: inherit;
+  color: #5b5b5b;
   margin-bottom: 0; 
   vertical-align: middle;
   text-align: center;
   border-color: rgba(0, 0, 0, 0.1);
   display: inline-block;
   border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
+  @include border-radius( 5px );
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
   box-shadow: none;
@@ -17,10 +16,14 @@
   font-weight: bold;
   line-height: 1;
   text-shadow: none;
-  background-color: #eee;
+  background-color: #efefef;
   font-size: 14px;
   padding: 8px 14px 9px;
   background-image: none;
   background-origin: padding-box;
   background-size: auto;
+
+  &:hover {
+    color: #555;
+  }
 }

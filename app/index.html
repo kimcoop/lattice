@@ -16,7 +16,7 @@
 
     <!-- endbuild -->
   </head>
-  <body ng-app="latticeApp">
+  <body ng-app="latticeApp" ng-controller="BaseCtrl">
     <!--[if lt IE 7]>
       <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
     <![endif]-->
@@ -27,7 +27,9 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
+    <header ng-include src="partials.nav"/></header>
     <div class="container" ng-view></div>
+    <footer ng-include src="partials.footer"/></footer>
 
     <script src="components/angular/angular.js"></script>
     <script src="components/angular-resource/angular-resource.js"></script>
