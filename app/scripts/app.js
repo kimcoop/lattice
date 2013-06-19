@@ -10,23 +10,20 @@ angular.module('latticeApp', [])
       .otherwise({
         redirectTo: '/'
       });
-
-
   });
 
 
 window.BaseCtrl = ['$scope', '$rootScope', '$location', '$timeout', '$anchorScroll',
-  function BaseCtrl($scope, $rootScope, $location, Pusher, $timeout, $anchorScroll) {
-    
+  function BaseCtrl($scope) {
+
     $scope.partials = {
       nav: 'views/nav.html',
       footer: 'views/footer.html'
-    }
+    };
 
     $scope.strings = {
       appName: 'LevelUp Staffing',
       tagline: 'Happier companies, happier workers, happier you'
-    }
-
-}] 
-
+    };
+  }
+];
