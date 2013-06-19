@@ -16,7 +16,7 @@ module.exports = function (grunt) {
   };
 
   try {
-    yeomanConfig.app = require('./component.json').appPath || yeomanConfig.app;
+    yeomanConfig.app = require('./bower.json').appPath || yeomanConfig.app;
   } catch (e) {}
 
   grunt.initConfig({
@@ -145,7 +145,7 @@ module.exports = function (grunt) {
         imagesDir: '<%= yeoman.app %>/images',
         javascriptsDir: '<%= yeoman.app %>/scripts',
         fontsDir: '<%= yeoman.app %>/styles/fonts',
-        importPath: '<%= yeoman.app %>/components',
+        importPath: '<%= yeoman.app %>/bower_components',
         relativeAssets: true
       },
       dist: {},
