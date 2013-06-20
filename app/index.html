@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" ng-app="latticeApp">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -14,12 +14,12 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="latticeApp" ng-controller="BaseCtrl">
+  <body ng-controller="BaseCtrl">
 
     <!-- Add your site or application content here -->
-    <header ng-include src="partials.nav"/></header>
+    <header ng-include src="partials.nav"></header>
     <div class="container" ng-view></div>
-    <footer ng-include src="partials.footer"/></footer>
+    <footer ng-include src="partials.footer"></footer>
 
     <!-- build:js scripts/angulars.js -->
     <script src="bower_components/angular/angular.js"></script>
