@@ -56,10 +56,9 @@ module.exports = function (grunt) {
           livereload: LIVERELOAD_PORT
         },
         files: [
-          '<%= yeoman.app %>/*.html',
+          '<%= yeoman.app %>/**/*.html',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
-        ],
-        tasks: ['livereload']
+        ]
       }
     },
     connect: {
@@ -313,16 +312,22 @@ module.exports = function (grunt) {
           ]
         }
       }
-    },
+    }
   });
 
-  grunt.registerTask('server', [
-    'clean:server',
-    'concurrent:server',
-    'connect:livereload',
-    'open',
-    'watch'
-  ]);
+  grunt.registerTask('server', function (target) {
+    if (target === 'dist') {
+      return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
+    }
+
+    grunt.task.run([
+      'clean:server',
+      'concurrent:server',
+      'connect:livereload',
+      'open',
+      'watch'
+    ]);
+  });
 
   grunt.registerTask('test', function (target) {
     if ( target !== 'e2e' ) {
