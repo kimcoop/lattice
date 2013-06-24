@@ -158,8 +158,13 @@ module.exports = function (grunt) {
     },
     jade: {
       html: {
-        src: ['<%= yeoman.app %>/views/*.jade'],
-        dest: '.tmp/views',
+        files: [{
+          expand:true,
+          cwd: '<%= yeoman.app %>/views',
+          src: ['{,*/}*.jade'],
+          dest: '.tmp/views',
+          ext: '.html'
+        }],
         options: {
           client: false
         }
