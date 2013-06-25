@@ -45,7 +45,7 @@ module.exports = function (grunt) {
         }
       },
       jade: {
-        files: 'app/views/(,*/}*.jade',
+        files: ['<%= yeoman.app %>/{,*/}*.jade'],
         tasks: ['jade'],
         options: {
           livereload: true
@@ -56,7 +56,6 @@ module.exports = function (grunt) {
           livereload: LIVERELOAD_PORT
         },
         files: [
-          '<%= yeoman.app %>/**/*.html',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
@@ -64,8 +63,7 @@ module.exports = function (grunt) {
     connect: {
       options: {
         port: 9000,
-        // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost'
+        hostname: '*'
       },
       livereload: {
         options: {
@@ -128,15 +126,20 @@ module.exports = function (grunt) {
     },
     karma: {
       unit: {
-        configFile: 'karma.conf.js',
-        singleRun: true
+        configFile: 'test/karma.conf.js',
+        singleRun: true,
+        autoWatch: false
       },
       e2e: {
-        configFile: 'karma-e2e.conf.js',
-        singleRun: true
+        configFile: 'test/karma-e2e.conf.js',
+        singleRun: true,
+        autoWatch: false
       }
     },
     coffee: {
+      options: {
+        sourceMap: true
+      },
       dist: {
         files: [{
           expand: true,
@@ -157,11 +160,17 @@ module.exports = function (grunt) {
       }
     },
     jade: {
-      html: {
-        src: ['<%= yeoman.app %>/views/*.jade'],
-        dest: '.tmp/views',
+      all: {
+        files: [{
+          expand:true,
+          cwd: '<%= yeoman.app %>',
+          src: ['{,*/}*.jade'],
+          dest: '.tmp',
+          ext: '.html'
+        }],
         options: {
-          client: false
+          client: false,
+          pretty: true
         }
       }
     },
@@ -173,7 +182,10 @@ module.exports = function (grunt) {
         javascriptsDir: '<%= yeoman.app %>/scripts',
         fontsDir: '<%= yeoman.app %>/styles/fonts',
         importPath: '<%= yeoman.app %>/bower_components',
-        relativeAssets: true
+        relativeAssets: false,
+        generatedImagesDir: '.tmp/images/generated',
+        httpImagesPath: '/images',
+        httpGeneratedImagesPath: '/images/generated'
       },
       dist: {},
       server: {
@@ -195,7 +207,7 @@ module.exports = function (grunt) {
       }
     },
     useminPrepare: {
-      html: '<%= yeoman.app %>/index.html',
+      html: '.tmp/index.html',
       options: {
         dest: '<%= yeoman.dist %>'
       }
@@ -255,20 +267,47 @@ module.exports = function (grunt) {
     // Put files not handled in other tasks here
     copy: {
       dist: {
-        files: [{
-          expand: true,
-          dot: true,
-          cwd: '<%= yeoman.app %>',
-          dest: '<%= yeoman.dist %>',
-          src: [
-            '*.{ico,txt}',
-            '.htaccess',
-            'bower_components/**/*',
-            'images/{,*/}*.{gif,webp}',
-            'styles/fonts/*',
-            '{,*/}*.html'
-          ]
-        }]
+        files: [
+          {
+            expand: true,
+            dot: true,
+            cwd: '<%= yeoman.app %>',
+            dest: '<%= yeoman.dist %>',
+            src: [
+              '*.{ico,png,txt}',
+              '.htaccess',
+              'images/{,*/}*.{gif,webp}',
+              'styles/fonts/*'
+            ]
+          },
+          {
+            expand: true,
+            dot: false,
+            cwd: '.tmp',
+            dest: '<%= yeoman.dist %>',
+            src: [
+              '{,*/}*.html'
+            ]
+          },
+          {
+            expand: true,
+            dot: false,
+            cwd: '<%= yeoman.app %>',
+            dest: '.tmp',
+            src: [
+              'bower_components/**/*',
+              'scripts/**/*'
+            ]
+          },
+          {
+            expand: true,
+            cwd: '.tmp/images',
+            dest: '<%= yeoman.dist %>/images',
+            src: [
+              'generated/*'
+            ]
+          }
+        ]
       }
     },
     concurrent: {
@@ -280,7 +319,7 @@ module.exports = function (grunt) {
       test: [
         'coffee:test',
         'jade',
-        'compass'
+        'compass:server'
       ],
       dist: [
         'coffee:dist',
@@ -316,8 +355,12 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('server', function (target) {
-    if (target === 'dist') {
-      return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
+    if ( target === 'dist' ) {
+      return grunt.task.run([
+        'build',
+        'open',
+        'connect:dist:keepalive'
+      ]);
     }
 
     grunt.task.run([
@@ -330,30 +373,32 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('test', function (target) {
-    if ( target !== 'e2e' ) {
-      grunt.task.run([
-        'clean:server',
-        'connect:test',
-        'karma:unit'
-      ]);
-    }
+    grunt.task.run([
+      'clean:server',
+      'concurrent:test',
+      'connect:livereload'
+    ]);
 
     if ( target !== 'unit' ) {
       grunt.task.run([
-        'clean:server',
-        'compass',
-        'connect:livereload',
         'karma:e2e'
+      ]);
+    }
+
+    if ( target !== 'e2e' ) {
+      grunt.task.run([
+        'karma:unit'
       ]);
     }
   });
 
   grunt.registerTask('build', [
     'clean:dist',
-    'useminPrepare',
+    'clean:server',
     'concurrent:dist',
-    'concat',
+    'useminPrepare',
     'copy',
+    'concat',
     'cdnify',
     'ngmin',
     'uglify',
@@ -366,7 +411,6 @@ module.exports = function (grunt) {
   grunt.registerTask('default', [
     'jshint',
     'test',
-    'build',
-    'clean:server'
+    'build'
   ]);
 };
