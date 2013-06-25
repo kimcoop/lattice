@@ -1,13 +1,18 @@
-// Karma E2E configuration
+// Karma configuration
 
 // base path, that will be used to resolve files and exclude
 basePath = '';
 
 // list of files / patterns to load in the browser
 files = [
-  ANGULAR_SCENARIO,
-  ANGULAR_SCENARIO_ADAPTER,
-  'test/e2e/**/*.js'
+  JASMINE,
+  JASMINE_ADAPTER,
+  'app/bower_components/angular/angular.js',
+  'app/bower_components/angular-mocks/angular-mocks.js',
+  'app/scripts/*.js',
+  'app/scripts/**/*.js',
+  'test/mock/**/*.js',
+  'test/spec/**/*.js'
 ];
 
 // list of files to exclude
@@ -18,10 +23,10 @@ exclude = [];
 reporters = ['progress'];
 
 // web server port
-port = 8080;
+port = 9877;
 
 // cli runner port
-runnerPort = 9100;
+runnerPort = 9101;
 
 // enable / disable colors in the output (reporters and logs)
 colors = true;
@@ -31,7 +36,7 @@ colors = true;
 logLevel = LOG_INFO;
 
 // enable / disable watching file and executing tests whenever any file changes
-autoWatch = false;
+autoWatch = true;
 
 // Start these browsers, currently available:
 // - Chrome
